@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&display=swap');
+@import "tailwindcss";
+
+@utility hoverEffect {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+@theme {
+  --font-poppins: Poppins, sans-serif;
+  --color-shop_light_pink: #fcf0e4;
+  --color-shop_dark_green: #063c28;
+  --color-shop_btn_dark_green: #063d29;
+  --color-shop_light_bg: #f6f6f6;
+  --color-shop_light_green: #3b9c3c;
+  --color-shop_orange: #fb6c08;
+  --color-darkColor: #151515;
+  --color-lightColor: #525252;
+  --color-lightOrange: #fca99b;
+  --color-light_Gray: #414141;
+}
+
+* {
+  font-family: "Outfit", sans-serif;
+}
+
+.prata-regular {
+  font-family: Prata, serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+html{
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+a.active hr {
+  @apply w-2/3;
+}
+
+a.active p {
+  @apply text-shop_light_green;
+}
+
+@media (max-width: 640px) {
+  a.active {
+    background-color: var(--color-shop_light_green);
+    color: white;
+  }
+} 
