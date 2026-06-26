@@ -5,7 +5,7 @@ import { Copyright } from 'lucide-react'
 const Footer = () => {
   return (
     <div>
-      <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm p-4 border-t border-gray-300 pt-10'>
+      <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm p-4 sm:px-24 border-t border-gray-300 pt-10'>
         <div>
           <div className="max-h-15 flex justify-start items-start w-full overflow-hidden"><img src={assets.logo} alt="Logo" className="mb-5 w-42  relative bottom-16" /></div>
           <p className="w-full md:w-2/3 text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, eaque. lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, eaque.</p>

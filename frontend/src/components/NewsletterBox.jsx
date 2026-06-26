@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NewsletteBox = () => {
+const NewsletterBox = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault()
@@ -18,4 +18,4 @@ const NewsletteBox = () => {
   )
 }
 
-export default NewsletteBox
+export default NewsletterBox

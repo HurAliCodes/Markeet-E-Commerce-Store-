@@ -6,11 +6,11 @@ import { Search, UserRound, ShoppingCart, TextAlignEnd, ArrowLeft } from 'lucide
 
 const NavBar = () => {
 
-  const { showSearch, setShowSearch } = useContext(ShopContext);
+  const { showSearch, setShowSearch, getCartCount } = useContext(ShopContext);
   const [visible, setVisible] = useState(false);
 
   return (
-    <div className="flex items-center justify-between py-5 font-medium">
+    <div className="flex items-center justify-between py-5 font-medium border-b -mb-[1px]">
 
       <div className="flex items-center gap-2 max-h-10">
         <Link to="/"><img src={assets.logo} alt="logo" className="w-30 min-w-[120px]" /></Link>
@@ -18,7 +18,7 @@ const NavBar = () => {
 
       <ul className="hidden sm:flex gap-5 text-sm text-gray-700 relative top-1 -left-2">
         <NavLink to="/" className="flex flex-col items-center gap-1 group">
-          <p className="uppercase ">Home</p>
+          <p className="uppercase group-hover:text-shop_light_green">Home</p>
           <hr className="w-0 border-none h-[1.5px] bg-shop_light_green group-hover:w-2/3 hoverEffect" />
         </NavLink>
 
@@ -26,12 +26,12 @@ const NavBar = () => {
           to="/collection"
           className="flex flex-col items-center gap-1 group"
         >
-          <p className="uppercase ">Collection</p>
+          <p className="uppercase group-hover:text-shop_light_green">Collection</p>
           <hr className="w-0 border-none h-[1.5px] bg-shop_light_green group-hover:w-2/3 hoverEffect" />
         </NavLink>
 
         <NavLink to="/about" className="flex flex-col items-center gap-1 group">
-          <p className="uppercase ">About</p>
+          <p className="uppercase group-hover:text-shop_light_green">About</p>
           <hr className="w-0 border-none h-[1.5px] bg-shop_light_green group-hover:w-2/3 hoverEffect" />
         </NavLink>
 
@@ -39,7 +39,7 @@ const NavBar = () => {
           to="/contact"
           className="flex flex-col items-center gap-1 group"
         >
-          <p className="uppercase ">Contact</p>
+          <p className="uppercase group-hover:text-shop_light_green">Contact</p>
           <hr className="w-0 border-none h-[1.5px] bg-shop_light_green group-hover:w-2/3 hoverEffect" />
         </NavLink>
       </ul>
@@ -47,20 +47,23 @@ const NavBar = () => {
       <div className="flex items-center gap-6">
         <Search className="w-5 min-w-5 cursor-pointer hover:text-shop_light_green hoverEffect" onClick={() => setShowSearch(!showSearch)} />
         <div className="group relative">
+          <Link to="/login" className="bg-red-500">
           <UserRound className="w-5 min-w-5 cursor-pointer hover:text-shop_light_green hoverEffect" />
-          <div className="group-hover:block cursor-pointer hidden absolute dropdown-menu right-0 top-4 pt-4">
-            <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-white border border-gray-300 text-gray-500 rounded text-sm">
-              <p className="cursor-pointer hover:text-black hoverEffect">My Profile</p>
-              <p className="cursor-pointer hover:text-black hoverEffect">Orders</p>
-              <p className="cursor-pointer hover:text-black hoverEffect">Logout</p>
+          <div className="group-hover:block cursor-pointer hidden absolute dropdown-menu right-0 top-5 pt-4">
+            <div className='absolute w-2 h-2 bg-white border-l border-t border-gray-300 right-2 top-3 rotate-45'></div>
+            <div className="flex flex-col w-36 py-2 bg-white border border-gray-300 text-gray-500 text-sm">
+              <Link to="/profile" className="cursor-pointer hover:text-black hover:bg-gray-200 hover:border-l-2 border-shop_light_green px-2 py-1">My Profile</Link>
+              <Link to="/orders" className="cursor-pointer hover:text-black hover:bg-gray-200 hover:border-l-2 border-shop_light_green px-2 py-1">Orders</Link>
+              <Link to="/logout" className="cursor-pointer hover:text-black hover:bg-gray-200 hover:border-l-2 border-shop_light_green px-2 py-1">Logout</Link>
             </div>
           </div>
+          </Link>
         </div>
 
         <Link to="/cart" className="relative">
           <ShoppingCart className="w-5 min-w-5 cursor-pointer hover:text-shop_light_green hoverEffect" />
           <div className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-black text-white text-xs flex items-center justify-center">
-            3
+            {getCartCount()}
           </div>
         </Link>
         <TextAlignEnd className="w-5 min-w-5 cursor-pointer sm:hidden" onClick={() => setVisible(true)} />
