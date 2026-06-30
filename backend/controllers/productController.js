@@ -1,48 +1,91 @@
-import cloudinary from "../utils/cloudinary.js"
+import {
+  addProductService,
+  listProductsService,
+  removeProductService,
+  singleProductService,
+} from "../services/productService.js";
 
 const addProduct = async (req, res) => {
   try {
+    await addProductService(req.body, req.files);
 
-      const { name, description, price, category, subCategory, sizes, bestseller } = req.body
-
-      const image1 = req.files.image1?.[0]
-      const image2 = req.files.image2?.[0]
-      const image3 = req.files.image3?.[0]
-      const image4 = req.files.image4?.[0]
-
-      const images = [image1, image2, image3, image4].filter(item => item !== undefined || item !== null);
-    
-      let imagesUrl = await Promise.all(images.map(async (image) => {
-          const result = await cloudinary.uploader.upload(image.path, {
-              folder: "products"
-          })
-          return result.secure_url
-      }))
-
-      console.log(name, description, price, category, subCategory, sizes, bestseller)
-      console.log(image1,image2,image3,image4);
-
-      res.json({
-        success: true,
-        message: "Product added successfully"
-    })
+    res.status(200).json({
+      success: true,
+      message: "Product added successfully",
+    });
   } catch (error) {
-      console.log(error)
-      res.json({success:false,message:error.message})
-  }
-}
+    console.log(error);
 
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 const listProducts = async (req, res) => {
+  try {
+    const products = await listProductsService();
 
-}
+    res.status(200).json({
+      success: true,
+      message: "Products listed successfully",
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 const removeProduct = async (req, res) => {
+  try {
+    const { productId } = req.params;
 
-}
+    await removeProductService(productId);
+
+    res.status(200).json({
+      success: true,
+      message: "Product removed successfully",
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 const singleProduct = async (req, res) => {
+  try {
+    const { productId } = req.params;
 
-}
+    const product = await singleProductService(productId);
 
-export { addProduct, listProducts, removeProduct, singleProduct };
+    res.status(200).json({
+      success: true,
+      message: "Product fetched successfully",
+      product,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export {
+  addProduct,
+  listProducts,
+  removeProduct,
+  singleProduct,
+};
