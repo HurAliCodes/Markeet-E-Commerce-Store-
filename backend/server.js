@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
+import { logger } from './logger.js';
 
 import connectDB from './config/mongodb.js';
 import connectCloudinary from './config/cloudinary.js';
@@ -20,6 +21,7 @@ connectCloudinary();
 // Middlewares
 app.use(express.json()); 
 app.use(cors());
+app.use(logger())
 
 // API Endpoints
 app.use('/api/user', userRouter);
