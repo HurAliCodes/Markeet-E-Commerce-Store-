@@ -128,7 +128,7 @@ const List = () => {
 
                   <td className="px-6 py-4 pt-8 text-center flex items-center justify-center">
 
-                    {item.bestseller ? (
+                    {item.bestSeller ? (
                       <Check color="green" className="h-7 w-7"/>
                     ) : (
                       <X color="red" className="h-7 w-7" />

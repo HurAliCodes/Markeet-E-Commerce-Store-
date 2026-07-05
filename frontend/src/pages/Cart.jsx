@@ -31,8 +31,6 @@ const Cart = () => {
     setCartData(data);
   }, [cartItems, products]);
 
-
-
   return (
     <div className='border-t pt-14'>
 

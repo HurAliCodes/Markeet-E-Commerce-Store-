@@ -20,4 +20,4 @@ const authUser = async (req, res, next) => {
   }
 };
 
-export { authUser };
+export default authUser;

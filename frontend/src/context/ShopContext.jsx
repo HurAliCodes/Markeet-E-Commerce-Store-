@@ -138,19 +138,21 @@ const ShopContextProvider = (props) => {
             toast.error("Failed to update cart item" + (error.response?.data?.message ? `: ${error.response.data.message}` : ''));
         }
     }
-
-    useEffect(() => {
-        console.log('Cart Items:', cartItems);
-    }, [cartItems]);
  
     useEffect(() => {
         getProductsData();
         if (localStorage.getItem('token')) {
             setToken(localStorage.getItem('token'));
-            getUserCart();
         }
     }, []);
-    
+
+    useEffect(() => {
+        if (token) {
+            localStorage.setItem('token', token);
+            getUserCart();
+        }
+    }, [token]);
+
     const value = {
         products,
         currency,
@@ -162,6 +164,7 @@ const ShopContextProvider = (props) => {
         showSearch,
         setShowSearch,
         cartItems,
+        setCartItems,
         addToCart,
         getCartCount,
         updateQuantity,
