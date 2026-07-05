@@ -12,8 +12,9 @@ const BestSeller = () => {
 
   React.useEffect(() => {
     if (products.length > 0) {
-      const sortedProducts = [...products].filter(p => p.bestseller).sort((a, b) => new Date(b.date) - new Date(a.date));
+      const sortedProducts = [...products].filter(p => p.bestSeller).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setBestSellerProducts(sortedProducts.slice(0, maxProductsToShow));
+      console.log('Best seller products:', sortedProducts.slice(0, maxProductsToShow));
     }
   }, [products]);
 
@@ -33,7 +34,7 @@ const BestSeller = () => {
                 <ProductItem
                   key={product._id}
                   id={product._id}
-                  image={product.image}
+                  image={product.images}
                   name={product.name}
                   price={product.price}
                 />

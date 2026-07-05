@@ -7,11 +7,15 @@ import CartTotal from '../components/CartTotal';
 
 const Cart = () => {
 
-  const { products, currency, cartItems, updateQuantity } = useContext(ShopContext);
+  const { products, currency, cartItems, updateQuantity, getUserCart } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
     const data = [];
+    if (!products || !cartItems) {
+      setCartData([]);
+      return;
+    }
     for (const productId in cartItems) {
       for (const size in cartItems[productId]) {
         const product = products.find(p => p._id === productId);
@@ -26,6 +30,8 @@ const Cart = () => {
     }
     setCartData(data);
   }, [cartItems, products]);
+
+
 
   return (
     <div className='border-t pt-14'>
@@ -55,11 +61,11 @@ const Cart = () => {
                       return (
                         <div
                           key={index}
-                          className='py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4'
+                          className='py-4 border-t border-b text-gray-700 grid grid-cols-1 sm:grid-cols-[4fr_2fr_0.5fr] items-start sm:items-center gap-4'
                         >
                           <div className='flex items-start gap-6'>
                             <img
-                              src={item.image[0]}
+                              src={item.images?.[0]}
                               alt=""
                               className='w-16 sm:w-20'
                             />
@@ -82,7 +88,7 @@ const Cart = () => {
                             </div>
                           </div>
 
-                          <div className='flex border rounded overflow-hidden w-fit'>
+                          <div className='flex border rounded overflow-hidden w-full sm:w-fit justify-start'>
                             <button
                               disabled={item.quantity <= 1}
                               onClick={() =>
@@ -102,9 +108,24 @@ const Cart = () => {
                               <Minus size={16} />
                             </button>
 
-                            <span className='px-4 py-2 min-w-10 text-center border-l border-r border-gray-400'>
-                              {item.quantity}
-                            </span>
+                            <input
+                              type="number"
+                              min="1"
+                              max="10"
+                              value={item.quantity}
+                              onChange={(e) =>
+                                updateQuantity(
+                                  item._id,
+                                  item.size,
+                                  parseInt(e.target.value)
+                                )
+                              }
+                              onFocus={e=>
+                              //  select all text in the input when focused
+                              e.target.select()
+                              }
+                              className='px-0 py-2 min-w-10 w-full text-center border-l border-r border-gray-400 no-arrows'
+                            />
 
                             <button
                               disabled={item.quantity >= 10}
@@ -130,9 +151,18 @@ const Cart = () => {
                             onClick={() =>
                               updateQuantity(item._id, item.size, 0)
                             }
-                            className='w-4 mr-4 sm:w-5 text-gray-500 cursor-pointer hoverEffect hover:text-red-500'
+                            className='w-4 sm:w-5 text-gray-500 cursor-pointer hoverEffect hover:text-red-500 justify-self-start sm:justify-self-auto hidden sm:block'
                             size={20}
                           />
+
+                          <button
+                            onClick={() =>
+                              updateQuantity(item._id, item.size, 0)
+                            }
+                            className='sm:hidden bg-red-700 hover:bg-red-900 text-white py-2 px-3 rounded-md'
+                          >
+                            Delete
+                          </button>
                         </div>
                       );
                     })

@@ -86,6 +86,35 @@ input[type="checkbox"]:checked::before {
   transform: scale(1);
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   display: none;
+} */
+
+::-webkit-scrollbar {
+  width: 8px; /* Adjust the width as needed */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Track color */
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-shop_light_green); /* Thumb color */
+  height: 150px; /* Minimum height */
+  border-radius: 2px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-shop_dark_green); /* Thumb color on hover */
+}
+
+/* Apply only to inputs with the .no-arrows class */
+.no-arrows::-webkit-outer-spin-button,
+.no-arrows::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-arrows {
+  -moz-appearance: textfield;
 }

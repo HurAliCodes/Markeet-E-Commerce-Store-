@@ -36,7 +36,7 @@ const Product = () => {
   const fetchProductData = (id) => {
     const product = products.find(p => p._id === id);
     setProductData(product);
-    setProductImage(product?.image[0] || null);
+    setProductImage(product?.images?.[0] || null);
     setSelectedSize(product?.sizes[0] || null);
   }
 
@@ -53,7 +53,7 @@ const Product = () => {
         {/* ----------- Product Image ------------*/}
         <div className="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
           <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full h-full">
-            {productData.image.map((img, index) => (
+            {productData.images.map((img, index) => (
               <img key={index} src={img} alt={`Product ${index + 1}`} className={`w-[24%] sm:w-full sm:mb-3 shrink-0 cursor-pointer ${productImage === img ? 'border-2 border-black' : ''}`} onClick={() => setProductImage(img)} />
             ))}
           </div>

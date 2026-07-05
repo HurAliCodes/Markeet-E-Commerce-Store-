@@ -3,11 +3,19 @@ import { ShopContext } from "../context/ShopContext";
 import { assets }  from "../assets";
 import { Link, NavLink } from "react-router-dom";
 import { Search, UserRound, ShoppingCart, TextAlignEnd, ArrowLeft } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
 
-  const { showSearch, setShowSearch, getCartCount } = useContext(ShopContext);
+  const { showSearch, setShowSearch, getCartCount, token, setToken } = useContext(ShopContext);
   const [visible, setVisible] = useState(false);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    setToken(null);
+    localStorage.removeItem('token');
+    navigate('/login');
+  }
 
   return (
     <div className="flex items-center justify-between py-5 font-medium border-b -mb-[1px]">
@@ -49,14 +57,16 @@ const NavBar = () => {
         <div className="group relative">
           <Link to="/login" className="bg-red-500">
           <UserRound className="w-5 min-w-5 cursor-pointer hover:text-shop_light_green hoverEffect" />
-          <div className="group-hover:block cursor-pointer hidden absolute dropdown-menu right-0 top-5 pt-4">
-            <div className='absolute w-2 h-2 bg-white border-l border-t border-gray-300 right-2 top-3 rotate-45'></div>
-            <div className="flex flex-col w-36 py-2 bg-white border border-gray-300 text-gray-500 text-sm">
-              <Link to="/profile" className="cursor-pointer hover:text-black hover:bg-gray-200 hover:border-l-2 border-shop_light_green px-2 py-1">My Profile</Link>
-              <Link to="/orders" className="cursor-pointer hover:text-black hover:bg-gray-200 hover:border-l-2 border-shop_light_green px-2 py-1">Orders</Link>
-              <Link to="/logout" className="cursor-pointer hover:text-black hover:bg-gray-200 hover:border-l-2 border-shop_light_green px-2 py-1">Logout</Link>
+          {token && (
+            <div className="group-hover:block cursor-pointer hidden absolute dropdown-menu right-0 top-5 pt-4">
+              <div className='absolute w-2 h-2 bg-white border-l border-t border-gray-300 right-2 top-3 rotate-45'></div>
+              <div className="flex flex-col w-36 py-2 bg-white border border-gray-300 text-gray-500 text-sm">
+                <Link to="/profile" className="cursor-pointer hover:text-black hover:bg-gray-200 hover:border-l-2 border-shop_light_green px-2 py-1">My Profile</Link>
+                <Link to="/orders" className="cursor-pointer hover:text-black hover:bg-gray-200 hover:border-l-2 border-shop_light_green px-2 py-1">Orders</Link>
+                <p onClick={()=>logout()} className="cursor-pointer hover:text-black hover:bg-gray-200 hover:border-l-2 border-shop_light_green px-2 py-1">Logout</p>
+              </div>
             </div>
-          </div>
+          )}
           </Link>
         </div>
 

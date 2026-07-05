@@ -11,7 +11,7 @@ const LatestCollection = () => {
 
   React.useEffect(() => {
     if (products.length > 0) {
-      const sortedProducts = [...products].sort((a, b) => new Date(b.date) - new Date(a.date));
+      const sortedProducts = [...products].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setLatestProducts(sortedProducts.slice(0, maxProductsToShow));
     }
   }, [products]);
@@ -32,7 +32,7 @@ const LatestCollection = () => {
             <ProductItem
               key={product._id}
               id={product._id}
-              image={product.image}
+              image={product.images}
               name={product.name}
               price={product.price}
             />

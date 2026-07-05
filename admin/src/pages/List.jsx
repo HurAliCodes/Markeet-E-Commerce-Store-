@@ -43,7 +43,7 @@ const List = () => {
 
   return (
     <div className="w-full p-4">
-      <div className="rounded-2xl shadow-md">
+      <div className="rounded-2xl border border-gray-200 bg-white shadow">
 
         <div className=" p-6">
           <p className="mt-1 text-gray-500">
@@ -59,7 +59,7 @@ const List = () => {
 
             <thead>
 
-              <tr className="bg-gray-50">
+              <tr className="bg-gray-50 border-t border-gray-300 text-sm font-medium text-gray-500">
 
                 <th className="px-6 py-4 text-left">
                   Image
