@@ -447,10 +447,13 @@ const Order = () => {
                     <select
                       value={statusValue}
                       onChange={(e) => setStatusValue(e.target.value)}
-                      className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 outline-none focus:border-shop_light_green"
+                      className="cursor-pointer w-full rounded-xl border border-gray-300 bg-white px-4 py-3 outline-none focus:border-shop_light_green"
                     >
                       {orderStatusOptions.map((option) => (
-                        <option key={option} value={option}>
+                        <option key={option} value={option} className={`cursor-pointer ${
+                          option === 'Order Delivered' ? 'bg-green-600/30' :
+                          option === 'Order Cancelled' ? 'bg-red-600/30' : ''
+                        }`}>
                           {option}
                         </option>
                       ))}
