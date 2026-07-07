@@ -21,6 +21,7 @@ const placeOrder = async (req, res) => {
       address,
       payment: false,
       date: Date.now(),
+      cancellable: true,
     }
 
     const order = new orderModel(orderData);
@@ -94,6 +95,73 @@ const allOrders = async (req, res) => {
   } 
 }
 
+// Cancel order by user
+const cancelOrder = async (req, res) => {
+  try {
+    const { orderId, userId } = req.body;
+
+    if (!orderId || !userId) {
+      return res.status(400).json({
+        success: false,
+        message: "orderId and userId are required",
+      });
+    }
+
+    const order = await orderModel.findOne({
+      _id: orderId,
+      userId,
+    });
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: "Order not found",
+      });
+    }
+
+    // Orders that should not be cancelled by customer
+    const nonCancellableStatuses = [
+      "Order Shipped",
+      "Out for Delivery",
+      "Order Delivered",
+      "Order Cancelled",
+      "Returned",
+    ];
+
+    if (nonCancellableStatuses.includes(order.status)) {
+      return res.status(400).json({
+        success: false,
+        message: `This order cannot be cancelled because it is ${order.status}`,
+      });
+    }
+
+    // Optional: respect your cancellable field if it exists in schema
+    if (order.cancellable === false) {
+      return res.status(400).json({
+        success: false,
+        message: "This order is no longer eligible for cancellation",
+      });
+    }
+
+    order.status = "Order Cancelled";
+    order.cancellable = false;
+
+    await order.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Order cancelled successfully",
+      order,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error cancelling order",
+      error: error.message,
+    });
+  }
+};
+
 // Update order status (admin only)
 const updateStatus = async (req, res) => {
   try {
@@ -105,6 +173,7 @@ const updateStatus = async (req, res) => {
         message: "orderId and status are required",
       });
     }
+
 
     const updatedOrder = await orderModel.findByIdAndUpdate(
       orderId,
@@ -133,4 +202,11 @@ const updateStatus = async (req, res) => {
   }
 }
 
-export { placeOrder, placeOrderSafepay, userOrders, allOrders, updateStatus };
+export {
+  placeOrder,
+  placeOrderSafepay,
+  userOrders,
+  allOrders,
+  updateStatus,
+  cancelOrder,
+};
