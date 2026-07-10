@@ -93,17 +93,21 @@ const Order = () => {
   const filteredOrders = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     const baseOrders = orders.filter((order) => {
-      const isCompleted = order.status === 'Order Delivered';
+      const isCompleted = order.status === 'Order Delivered' ;
 
-      if (activeTab === 'completed') {
-        return isCompleted;
-      }
+        if (activeTab === 'completed') {
+          return isCompleted;
+        }
 
-      if (activeTab === 'active') {
-        return !isCompleted;
-      }
+        if (activeTab === 'cancelled') {
+          return order.status === 'Order Cancelled';
+        }
 
-      return true;
+        if (activeTab === 'active') {
+          return !isCompleted && order.status !== 'Order Cancelled';
+        }
+
+        return true;
     });
 
     if (!normalized) {
@@ -176,8 +180,9 @@ const Order = () => {
     };
 
   const totalItems = orders.reduce((count, order) => count + (order.items?.length || 0), 0);
-  const activeCount = orders.filter((order) => order.status !== 'Order Delivered').length;
+  const activeCount = orders.filter((order) => order.status !== 'Order Delivered' && order.status !== 'Order Cancelled').length;
   const completedCount = orders.filter((order) => order.status === 'Order Delivered').length;
+  const cancelledCount = orders.filter((order) => order.status === 'Order Cancelled').length;
 
   useEffect(() => {
     if (selectedOrder) {
@@ -223,6 +228,12 @@ const Order = () => {
               >
                 <CheckCircle2 className="h-4 w-4" />
                 Completed Orders ({completedCount})
+              </button>
+              <button
+                onClick={() => setActiveTab('cancelled')}
+                className={`rounded-2xl px-4 py-2 text-sm font-medium transition ${activeTab === 'cancelled' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500'}`}
+              >
+                Cancelled Orders ({cancelledCount})
               </button>
               <button
                 onClick={() => setActiveTab('all')}

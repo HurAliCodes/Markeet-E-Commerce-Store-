@@ -121,10 +121,10 @@ const PlaceOrder = () => {
           <Title text1='Payment' text2='Method' />
           {/* ---------- Payment Method Selection ---------- */}
           <div className='flex gap-3 flex-col lg:flex-row'>
-              <div onClick={()=>setMethods('safepay')} className='flex items-center gap-3 border p-2 px-3 cursor-pointer'>
+              {/* <div onClick={()=>setMethods('safepay')} className='flex items-center gap-3 border p-2 px-3 cursor-pointer'>
                   <p className={`border-2 min-w-3.5 min-h-3.5 w-3.5 h-3.5 rounded-full ${methods === 'safepay' ? 'bg-shop_light_green' : 'border-gray-300'}`}></p>
                   <p className='text-gray-500 text-sm font-medium mx-4'>SAFE PAY</p>
-              </div>
+              </div> */}
               <div onClick={()=>setMethods('cod')} className='flex items-center gap-3 border p-2 px-3 cursor-pointer'>
                   <p className={`border-2 min-w-3.5 min-h-3.5 w-3.5 h-3.5 rounded-full ${methods === 'cod' ? 'bg-shop_light_green' : 'border-gray-300'}`}></p>
                   <p className='text-gray-500 text-sm font-medium mx-4'>CASH ON DELIVERY</p>

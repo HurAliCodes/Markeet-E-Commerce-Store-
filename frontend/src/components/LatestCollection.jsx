@@ -7,7 +7,7 @@ const LatestCollection = () => {
   const { products } = React.useContext(ShopContext);
   const [latestProducts, setLatestProducts] = React.useState([]);
 
-  const maxProductsToShow = 10;
+  const maxProductsToShow = 20;
 
   React.useEffect(() => {
     if (products.length > 0) {

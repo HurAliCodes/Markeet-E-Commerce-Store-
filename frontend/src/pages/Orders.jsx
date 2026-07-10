@@ -103,7 +103,7 @@ const cancelOrder = async (orderId) => {
         }
     } catch (error) {
         console.error('Cancel order error:', error);
-        toast.error('Something went wrong while cancelling the order');
+        toast.error('An error occurred while cancelling the order.');
     }
 };
 
@@ -123,6 +123,17 @@ const cancelledOrders = orders.filter(
         item.status === 'Order Cancelled' ||
         item.status === 'Returned'
 );
+
+const cancellable = (status) => {
+    const nonCancellableStatuses = [
+        "Order Shipped",
+        "Out for Delivery",
+        "Order Delivered",
+        "Order Cancelled",
+        "Returned",
+    ];
+    return nonCancellableStatuses.includes(status);
+}
 
 const getFilteredOrders = () => {
     if (activeTab === 'active') return activeOrders;
@@ -248,19 +259,16 @@ return (
                                 </p>
                             </div>
 
-                            {item.status !== 'Order Delivered' &&
-                                item.status !== 'Order Cancelled' &&
-                                item.status !== 'Returned' && (
-                                    <button
-                                        onClick={() =>
-                                            cancelOrder(item.orderId)
-                                        }
-                                        disabled={!item.cancellable}
-                                        className="bg-white px-4 py-2 rounded border-2 border-gray-300 text-gray-800 hover:bg-black hover:text-white transition disabled:opacity-50 disabled:cursor-not-allowed"
-                                    >
-                                        Cancel Order
-                                    </button>
-                                )}
+                            <button
+                                onClick={() =>
+                                    cancelOrder(item.orderId)
+                                }
+                                disabled={!item.cancellable || cancellable(item.status)}
+                                className={`${!item.cancellable || cancellable(item.status) ? 'bg-gray-100 cursor-not-allowed!' : 'bg-white  hover:bg-black hover:text-white transition'} px-4 py-2 rounded border-2 border-gray-300 text-gray-800`}
+                            >
+                                Cancel Order
+                            </button>
+                                
                         </div>
                     </div>
                 ))

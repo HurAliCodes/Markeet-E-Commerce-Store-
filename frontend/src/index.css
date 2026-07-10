@@ -118,3 +118,49 @@ input[type="checkbox"]:checked::before {
 .no-arrows {
   -moz-appearance: textfield;
 }
+
+.price-range {
+  pointer-events: none;
+}
+
+.price-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: #063c28;
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px #3b9c3c;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.price-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: #063c28;
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px #3b9c3c;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+@keyframes brand-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.brand-marquee-track {
+  animation: brand-marquee 25s linear infinite;
+  will-change: transform;
+}
+
+.brand-marquee-track:hover {
+  animation-play-state: paused;
+}

@@ -10,7 +10,6 @@ import {
   cancelOrder,
 } from "../controllers/orderController.js";
 
-orderRouter.post("/cancel", authUser, cancelOrder);
 
 const orderRouter = express.Router();
 
@@ -24,6 +23,6 @@ orderRouter.post('/place/safepay', authUser, placeOrderSafepay);
 
 // USER ROUTES
 orderRouter.get('/user', authUser, userOrders);
-apiClient.post("/api/order/cancel", { orderId });
+orderRouter.post('/cancel', authUser, cancelOrder);
 
 export default orderRouter;
