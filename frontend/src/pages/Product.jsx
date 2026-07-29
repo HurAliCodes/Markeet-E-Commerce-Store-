@@ -2,8 +2,8 @@ import { useParams } from "react-router-dom"
 import { useContext, useState, useEffect } from "react";
 import { ShopContext } from "../context/ShopContext";
 import RelatedProducts from "../components/RelatedProducts";
-import ReviewSection from "../components/reviews/ReviewSection";
-import ProductRating from "../components/reviews/ProductRating";
+import ReviewSection from "../components/Reviews/ReviewSection";
+import ProductRating from "../components/Reviews/ProductRating";
 
 const Product = () => {
 

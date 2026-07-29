@@ -30,7 +30,7 @@ const SideBar = () => {
     <aside className="min-h-screen w-20 md:w-64 border-r bg-white shadow-sm">
       
       {/* Navigation */}
-      <nav className="flex flex-col gap-2 p-4 pt-8">
+      <nav className="flex flex-col gap-2 p-4 pt-8 sticky top-0">
         {navLinks.map((item) => {
           const Icon = item.icon;
 
