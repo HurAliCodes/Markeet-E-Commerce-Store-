@@ -21,24 +21,25 @@ const port = process.env.PORT || 4000;
 const allowedOrigins = [
   'https://yourdomain.com',
   'https://yourdomain.com',
-  'http://localhost:3000',
+  'http://localhost:3000',  
   'http://localhost:5173',
   'http://localhost:5174',
-  'https://markeet-one.vercel.app/',
-  'https://markeet-admin-one.vercel.app/'
+  'https://markeet-one.vercel.app',
+  'https://markeet-admin-one.vercel.app'
 ];
 
 const corsOptions = {
-  origin: function (origin, callback) {
+  origin(origin, callback) {
+    console.log("Origin:", origin);
+
     if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
+
+    if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
     }
-    return callback(null, true);
-  },
-  credentials: true
+
+    return callback(null, false);
+  }
 };
 
 // Connect to DB
@@ -46,8 +47,11 @@ connectDB();
 connectCloudinary();
 
 // Middlewares
+app.use(cors({
+    origin: true,
+    credentials: true
+}));
 app.use(express.json()); 
-app.use(cors(corsOptions));
 app.use(logger())
 
 // API Endpoints
