@@ -12,6 +12,7 @@ export const createCodOrder = async ({ userId, items, amount, address }) => {
     date: Date.now(),
     cancellable: true,
   };
+  console.log("Creating COD order:", orderData);
 
   const order = new orderModel(orderData);
   await order.save();
