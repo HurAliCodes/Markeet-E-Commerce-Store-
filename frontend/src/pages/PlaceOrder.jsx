@@ -60,7 +60,7 @@ const PlaceOrder = () => {
         payment: false,
         Date: Date.now(),
       }
-
+      console.log('Placing order with data:', orderData);
       const response = await apiClient.post(`api/order/place/${methods}`, orderData);
       console.log('Order placed successfully:', response.data);
       toast.success('Order placed successfully!');
