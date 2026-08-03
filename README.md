@@ -224,7 +224,3 @@ npm run dev
 ## Deployment
 
 For production, deploy the frontend and admin apps separately and point both apps at the deployed backend API through `VITE_BACKEND_URL`. Update the backend CORS allowlist and environment variables for your production domains and services.
-
-## License
-
-No license file is included yet. Add one if you plan to publish or distribute the project.
