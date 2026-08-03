@@ -14,6 +14,7 @@ import {
   CalendarDays,
   Search,
   X,
+  RefreshCw
 } from 'lucide-react';
 
 const Order = () => {
@@ -242,7 +243,7 @@ const Order = () => {
                 All Orders ({orders.length})
               </button>
             </div>
-
+            <RefreshCw onClick={() => window.location.reload()} className="h-6 w-6 text-gray-300 cursor-pointer" />
             <div className="flex items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 focus-within:border-shop_light_green focus-within:bg-white lg:min-w-90">
               <Search className="h-5 w-5 text-gray-400" />
               <input

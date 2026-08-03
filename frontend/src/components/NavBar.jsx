@@ -61,7 +61,7 @@ const NavBar = () => {
             <div className="group-hover:block cursor-pointer hidden absolute dropdown-menu right-0 top-5 pt-4">
               <div className='absolute w-2 h-2 bg-white border-l border-t border-gray-300 right-2 top-3 rotate-45'></div>
               <div className="flex flex-col w-36 py-2 bg-white border border-gray-300 text-gray-500 text-sm">
-                <Link to="/profile" className="cursor-pointer hover:text-black hover:bg-gray-200 hover:border-l-2 border-shop_light_green px-2 py-1">My Profile</Link>
+                {/* <Link to="/profile" className="cursor-pointer hover:text-black hover:bg-gray-200 hover:border-l-2 border-shop_light_green px-2 py-1">My Profile</Link> */}
                 <Link to="/orders" className="cursor-pointer hover:text-black hover:bg-gray-200 hover:border-l-2 border-shop_light_green px-2 py-1">Orders</Link>
                 <p onClick={()=>logout()} className="cursor-pointer hover:text-black hover:bg-gray-200 hover:border-l-2 border-shop_light_green px-2 py-1">Logout</p>
               </div>
