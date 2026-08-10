@@ -14,10 +14,12 @@ import SearchBar from './components/SearchBar'
 import Cart from './pages/Cart'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import ScrollToTop from './components/ScrollToTop';
 
 const App = () => {
   return (
     <>
+      <ScrollToTop />
       <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
         <ToastContainer />
         <NavBar />
